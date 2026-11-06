@@ -152,16 +152,24 @@ async function showReport() {
     if (id === reportRequest) notice(error.message);
   }
 }
-function navigate(report) {
+function navigate(view) {
   notice('');
-  byId('floor').hidden = report;
-  byId('report').hidden = !report;
-  byId(report ? 'floor-tab' : 'report-tab').removeAttribute('aria-current');
-  byId(report ? 'report-tab' : 'floor-tab').setAttribute('aria-current','page');
-  if (report) showReport(); else reportRequest++;
+  for (const section of ['floor', 'report', 'video']) {
+    byId(section).hidden = view !== section;
+    if (view === section) byId(section + '-tab').setAttribute('aria-current', 'page');
+    else byId(section + '-tab').removeAttribute('aria-current');
+  }
+  if (view === 'report') showReport(); else reportRequest++;
 }
 byId('filter').addEventListener('change', renderFloor);
-byId('floor-tab').addEventListener('click', () => navigate(false));
-byId('report-tab').addEventListener('click', () => navigate(true));
+function syncView() {
+  const view = location.hash.slice(1);
+  navigate(['report', 'video'].includes(view) ? view : 'floor');
+}
+for (const section of ['floor', 'report', 'video']) {
+  byId(section + '-tab').addEventListener('click', () => { location.hash = section; });
+}
+window.addEventListener('hashchange', syncView);
+syncView();
 refresh();
 setInterval(refresh, 2500);

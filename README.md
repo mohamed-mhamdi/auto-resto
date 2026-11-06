@@ -89,3 +89,9 @@ node --check web/app.js
 ```
 
 Le téléchargement des sources est facultatif et requiert FFmpeg pour la normalisation. Les empreintes, auteurs, licences et liens figurent dans [le manifeste des vidéos](evaluation/sources.json).
+
+## Aperçu vidéo local
+
+Ajoutez `--preview` à la commande du worker et ouvrez [Vidéo sur le serveur pilote](http://127.0.0.1:8766/#video). Le panneau rafraîchit environ deux images par seconde. La couleur suit le tableau de salle et le champ « IA » indique la détection caméra pour comparaison. Le rouge apparaît après 15 minutes depuis l’installation sans confirmation **Servi**, même après une prise en charge. Le seuil des alertes de prise en charge reste indépendant. Les images d’aperçu sont gardées en mémoire et nécessitent le même accès que le tableau en mode pilote. Limitez l’accès à cet écran au personnel autorisé.
+
+Pour un essai sans caméra, lancez `Preparer-vision.cmd`, puis `Lancer-video.cmd`. Le replay ouvre [l’onglet Vidéo de démonstration](http://127.0.0.1:8768/#video) et analyse un extrait en boucle. La table 1 est calibrée sur la vidéo. Utilisez l’onglet Salle pour modifier son état et vérifier l’overlay. Les états du service sont simulés et stockés dans une base séparée. [Attribution de l’extrait](evaluation/ATTRIBUTIONS.md)

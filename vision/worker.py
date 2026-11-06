@@ -1,4 +1,5 @@
 import argparse
+import base64
 import json
 import os
 import time
@@ -13,9 +14,9 @@ from camera import load_regions, load_seats, open_camera
 from pipeline import FeedWatch, Pipeline
 
 
-def send(url, key, observations):
+def send(url, key, observations, endpoint='/api/vision'):
     request = urllib.request.Request(
-        url.rstrip('/') + '/api/vision', data=json.dumps(observations).encode(),
+        url.rstrip('/') + endpoint, data=json.dumps(observations).encode(),
         headers={'Content-Type': 'application/json', 'Authorization': f'Bearer {key}'},
     )
     with urllib.request.urlopen(request, timeout=2) as response:
@@ -34,6 +35,8 @@ def main():
     parser.add_argument('--exit', type=float, default=30)
     parser.add_argument('--confidence', type=float, default=.22)
     parser.add_argument('--strong', type=float, default=.48)
+    parser.add_argument('--preview', action='store_true', help='Activer l’aperçu vidéo local')
+    parser.add_argument('--replay', type=Path, help='Lire un fichier dans le serveur de démonstration')
     args = parser.parse_args()
     key = os.environ.get('SALLEPILOT_CAMERA_KEY', '')
     if len(key) < 24 or not 0 <= args.margin <= 5 or min(args.enter, args.exit) <= 0:
@@ -50,10 +53,13 @@ def main():
     reference = json.loads(args.config.read_text(encoding='utf-8-sig')).get('reference')
     alignment = Alignment(reference) if reference else None
     source = os.environ.get('SALLEPILOT_SOURCE', '0')
-    if not source.isdecimal() and not source.lower().startswith(('rtsp://', 'rtsps://')):
+    if not args.replay and not source.isdecimal() and not source.lower().startswith(('rtsp://', 'rtsps://')):
         parser.error('Utilisez une webcam ou RTSP en direct. Pour un fichier vidéo : vision/benchmark.py.')
     while True:
-        camera = open_camera()
+        camera = cv2.VideoCapture(str(args.replay)) if args.replay else open_camera()
+        fps = camera.get(cv2.CAP_PROP_FPS) if args.replay else 0
+        if args.replay and not fps > 0:
+            parser.error('Vidéo de replay illisible.')
         pipeline.reset()
         watch = FeedWatch()
         last_sample = 0
@@ -63,6 +69,8 @@ def main():
                 ok, frame = camera.read()
                 if not ok:
                     break
+                if args.replay:
+                    time.sleep(1 / fps)
                 if [frame.shape[1], frame.shape[0]] != size:
                     parser.error('Résolution modifiée : recalibrez la caméra.')
                 now = time.monotonic()
@@ -76,9 +84,22 @@ def main():
                     pipeline.reset()
                     continue
                 was_frozen = False
-                _, _, confirmed = pipeline.update(frame, now)
+                _, raw, confirmed = pipeline.update(frame, now)
                 try:
-                    send(args.url, key, confirmed)
+                    if not args.replay:
+                        send(args.url, key, confirmed)
+                    if args.preview or args.replay:
+                        width, height = size
+                        scale = min(1, 960 / width)
+                        image = cv2.resize(frame, (round(width * scale), round(height * scale)))
+                        encoded, jpeg = cv2.imencode('.jpg', image, [cv2.IMWRITE_JPEG_QUALITY, 70])
+                        if encoded:
+                            regions = {table: {'box': [x / width, y / height, w / width, h / height],
+                                               'detected': raw[table]}
+                                       for table, (x, y, w, h) in boxes.items()}
+                            send(args.url, key, {'jpeg': base64.b64encode(jpeg).decode(),
+                                                 'regions': regions, 'replay': bool(args.replay)},
+                                 '/api/vision-preview')
                 except urllib.error.HTTPError as error:
                     if error.code in (400, 401, 404):
                         parser.error(f'API caméra refusée (HTTP {error.code}). Vérifiez clé et tables.')

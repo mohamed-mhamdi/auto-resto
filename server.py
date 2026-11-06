@@ -18,12 +18,15 @@ from store import Conflict, Store
 
 ROOT = Path(__file__).resolve().parent
 ASSETS = {'/': ('index.html', 'text/html'), '/app.js': ('app.js', 'text/javascript'),
-          '/style.css': ('style.css', 'text/css'), '/favicon.svg': ('favicon.svg', 'image/svg+xml')}
+          '/style.css': ('style.css', 'text/css'), '/favicon.svg': ('favicon.svg', 'image/svg+xml'),
+          '/video.js': ('video.js', 'text/javascript')}
 
 
 def handler(store, demo, name, password, camera_key, vision_auto=False, vision_departure=False):
     staff_auth = 'Basic ' + base64.b64encode(f'equipe:{password}'.encode()).decode()
     vision_auth = f'Bearer {camera_key}'
+    preview = None
+    preview_lock = threading.Lock()
 
     class Handler(BaseHTTPRequestHandler):
         timeout = 8
@@ -38,7 +41,7 @@ def handler(store, demo, name, password, camera_key, vision_auto=False, vision_d
             self.send_header('Cache-Control', 'no-store')
             self.send_header('X-Content-Type-Options', 'nosniff')
             self.send_header('Content-Security-Policy',
-                             "default-src 'self'; object-src 'none'; frame-ancestors 'none'; base-uri 'none'")
+                             "default-src 'self'; img-src 'self' data:; object-src 'none'; frame-ancestors 'none'; base-uri 'none'")
             for key, value in (headers or {}).items():
                 self.send_header(key, value)
             self.end_headers()
@@ -72,6 +75,13 @@ def handler(store, demo, name, password, camera_key, vision_auto=False, vision_d
                                 'vision_departure': vision_departure})
             elif path == '/api/report':
                 self.json(200, store.visits(time.time() - 7 * 86400))
+            elif path == '/api/video':
+                with preview_lock:
+                    packet = preview
+                if packet is None or time.monotonic() - packet[0] > 4:
+                    self.json(200, {'online': False, 'demo': demo})
+                else:
+                    self.json(200, {'online': True, 'demo': demo, **packet[1]})
             elif path in ('/api/export', '/api/vision-export'):
                 vision_log = path == '/api/vision-export'
                 if vision_log:
@@ -91,20 +101,39 @@ def handler(store, demo, name, password, camera_key, vision_auto=False, vision_d
                 self.json(404, {'error': 'Page inconnue.'})
 
         def do_POST(self):
+            nonlocal preview
             path = urlsplit(self.path).path
-            if path not in ('/api/vision', '/api/action'):
+            if path not in ('/api/vision', '/api/action', '/api/vision-preview'):
                 self.json(404, {'error': 'Action inconnue.'})
                 return
-            if not self.authorized(vision=path == '/api/vision'):
+            if not self.authorized(vision=path != '/api/action'):
                 return
             try:
                 size = int(self.headers.get('Content-Length', '0'))
-                if self.headers.get_content_type() != 'application/json' or not 0 < size <= 16384:
+                limit = 600000 if path == '/api/vision-preview' else 16384
+                if self.headers.get_content_type() != 'application/json' or not 0 < size <= limit:
                     raise ValueError('Requête JSON invalide.')
                 data = json.loads(self.rfile.read(size))
                 if not isinstance(data, dict):
                     raise ValueError('Objet JSON attendu.')
-                if path == '/api/action':
+                if path == '/api/vision-preview':
+                    jpeg, regions = data.get('jpeg'), data.get('regions')
+                    if (not isinstance(jpeg, str) or not isinstance(regions, dict) or not 0 < len(regions) <= 100
+                            or data.get('replay', False) is not demo):
+                        raise ValueError('Aperçu invalide.')
+                    if not base64.b64decode(jpeg, validate=True).startswith(b'\xff\xd8'):
+                        raise ValueError('Image JPEG requise.')
+                    for table, region in regions.items():
+                        if not table.isdecimal() or not isinstance(region, dict):
+                            raise ValueError('Zone invalide.')
+                        box = region.get('box')
+                        if (not isinstance(box, list) or len(box) != 4
+                                or any(type(value) not in (int, float) or not 0 <= value <= 1 for value in box)
+                                or region.get('detected') not in ('empty', 'occupied', None)):
+                            raise ValueError('Zone invalide.')
+                    with preview_lock:
+                        preview = (time.monotonic(), {'jpeg': jpeg, 'regions': regions})
+                elif path == '/api/action':
                     table, revision, action = data.get('table'), data.get('revision'), data.get('action')
                     if type(table) is not int or type(revision) is not int or not isinstance(action, str):
                         raise ValueError('Action invalide.')

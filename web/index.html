@@ -7,11 +7,12 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="/style.css">
 <script src="/app.js" defer></script>
+<script src="/video.js" defer></script>
 </head>
 <body>
 <header class="top">
   <div class="brand"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z"/></svg></span>SallePilot</div>
-  <nav aria-label="Navigation principale"><button id="floor-tab" aria-current="page">Salle</button><button id="report-tab">Bilan</button></nav>
+  <nav aria-label="Navigation principale"><button id="floor-tab" aria-current="page">Salle</button><button id="video-tab">Vidéo</button><button id="report-tab">Bilan</button></nav>
   <span class="connection" id="connection" role="status">Connexion…</span>
 </header>
 <main>
@@ -32,6 +33,23 @@
         <section class="side" aria-labelledby="history-title"><h2 id="history-title">Activité récente</h2><div id="history"></div></section>
       </aside>
     </div>
+  </section>
+  <section id="video" hidden>
+    <div class="hero">
+      <div><p class="eyebrow">CONTRÔLE DU FLUX</p><h1>Vidéo des tables</h1><p>Comparez les détections caméra avec les états du service.</p></div>
+      <span class="mode" id="video-status" role="status">Connexion…</span>
+    </div>
+    <div class="video-frame">
+      <canvas id="video-canvas" aria-label="Image caméra annotée" hidden></canvas>
+      <p id="video-empty">En attente d’un aperçu. Démarrez le worker avec l’option --preview.</p>
+    </div>
+    <div class="video-legend" aria-label="Légende des couleurs">
+      <span class="video-free">Libre</span><span class="video-waiting">En attente de service</span>
+      <span class="video-late">Attente ≥ 15 min</span><span class="video-served">Servie</span>
+      <span class="video-cleaning">À nettoyer</span>
+    </div>
+    <p>La couleur suit l’état de la salle. L’indication « IA » montre la détection sur l’image.</p>
+    <ul id="video-states" aria-label="Détail des tables dans la vidéo"></ul>
   </section>
   <section id="report" hidden>
     <div class="hero"><div><p class="eyebrow">SUIVI DE L’ACTIVITÉ</p><h1>Bilan de salle</h1><p>Sessions commencées sur les sept derniers jours.</p></div><a class="primary download" href="/api/export">Exporter l’historique CSV</a></div>
