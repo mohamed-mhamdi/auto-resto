@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SallePilot · Gestion de salle</title>
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<script src="/app.js" defer></script>
+</head>
+<body>
+<header class="top">
+  <div class="brand"><span class="logo" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M4 4h6v6H4zm10 0h6v6h-6zM4 14h6v6H4zm10 0h6v6h-6z"/></svg></span>SallePilot</div>
+  <nav aria-label="Navigation principale"><button id="floor-tab" aria-current="page">Salle</button><button id="report-tab">Bilan</button></nav>
+  <span class="connection" id="connection" role="status">Connexion…</span>
+</header>
+<main>
+  <p id="notice" role="alert" hidden></p>
+  <section id="floor">
+    <div class="hero">
+      <div><p class="eyebrow" id="restaurant">ESPACE DE SERVICE</p><h1>Vue de salle</h1><p>Suivez les tables et les priorités du service en direct.</p></div>
+      <span class="mode" id="mode">Chargement…</span>
+    </div>
+    <div id="metrics" class="metrics" aria-label="Résumé de la salle"></div>
+    <div class="floor-layout">
+      <section aria-labelledby="tables-title">
+        <div class="section-head"><div><h2 id="tables-title">Tables</h2><p id="table-count"></p></div><label>Afficher <select id="filter"><option value="all">Toutes les tables</option><option value="waiting">En attente</option><option value="free">Libres</option><option value="cleaning">À nettoyer</option></select></label></div>
+        <div id="tables" class="tables"></div>
+      </section>
+      <aside>
+        <section class="side" aria-labelledby="alerts-title"><h2 id="alerts-title">Priorités du service</h2><p id="threshold"></p><div id="alerts"></div></section>
+        <section class="side" aria-labelledby="history-title"><h2 id="history-title">Activité récente</h2><div id="history"></div></section>
+      </aside>
+    </div>
+  </section>
+  <section id="report" hidden>
+    <div class="hero"><div><p class="eyebrow">SUIVI DE L’ACTIVITÉ</p><h1>Bilan de salle</h1><p>Sessions commencées sur les sept derniers jours.</p></div><a class="primary download" href="/api/export">Exporter l’historique CSV</a></div>
+    <div id="report-metrics" class="metrics"></div>
+    <p class="vision-export"><a href="/api/vision-export">Exporter les observations caméra des sept derniers jours</a></p>
+    <section class="side"><h2>Arrivées par heure</h2><p>Heure locale du navigateur</p><div id="hours"></div></section>
+  </section>
+</main>
+<footer>SallePilot <span>Gestion de salle · Installation locale</span></footer>
+</body>
+</html>

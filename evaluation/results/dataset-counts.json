@@ -1,0 +1,8 @@
+{
+  "test/empty": 28,
+  "test/occupied": 69,
+  "train/empty": 152,
+  "train/occupied": 132,
+  "val/empty": 62,
+  "val/occupied": 22
+}

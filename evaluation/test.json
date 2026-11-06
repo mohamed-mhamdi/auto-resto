@@ -1,0 +1,137 @@
+{
+  "clips": [
+    {
+      "id": "cheese-mites-table",
+      "file": "cheese-mites.mp4",
+      "split": "test",
+      "start": 6,
+      "end": 62.5,
+      "every": 1,
+      "size": [
+        640,
+        466
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            0,
+            98,
+            288,
+            366
+          ],
+          "labels": [
+            [
+              6,
+              62.5,
+              "occupied"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "sing-wong-empty-seats",
+      "file": "sing-wong.mp4",
+      "split": "test",
+      "start": 94,
+      "end": 100.75,
+      "every": 0.5,
+      "size": [
+        640,
+        426
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            40,
+            205,
+            182,
+            190
+          ],
+          "labels": [
+            [
+              94,
+              100.75,
+              "empty"
+            ]
+          ]
+        },
+        "2": {
+          "region": [
+            235,
+            188,
+            235,
+            215
+          ],
+          "labels": [
+            [
+              94,
+              100.75,
+              "empty"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "kusko-diners",
+      "file": "kusko.mp4",
+      "split": "test",
+      "start": 10.75,
+      "end": 13.75,
+      "every": 0.5,
+      "size": [
+        640,
+        360
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            5,
+            135,
+            174,
+            222
+          ],
+          "labels": [
+            [
+              10.75,
+              13.75,
+              "occupied"
+            ]
+          ],
+          "seats": [
+            [
+              50,
+              118,
+              120,
+              102
+            ]
+          ]
+        },
+        "2": {
+          "region": [
+            352,
+            152,
+            227,
+            205
+          ],
+          "labels": [
+            [
+              10.75,
+              13.75,
+              "occupied"
+            ]
+          ],
+          "seats": [
+            [
+              390,
+              175,
+              170,
+              100
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

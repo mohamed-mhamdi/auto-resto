@@ -1,0 +1,15 @@
+{
+  "clips": [
+    {
+      "id": "kehlsteinhaus-moving",
+      "frames": 33,
+      "rejected_alignment": 32,
+      "median_ms": 1.35,
+      "p95_ms": 1.79,
+      "counts": {},
+      "predicted_events": [],
+      "labelled_transitions": []
+    }
+  ],
+  "totals": {}
+}

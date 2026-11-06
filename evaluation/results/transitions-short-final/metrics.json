@@ -1,0 +1,61 @@
+{
+  "clips": [
+    {
+      "id": "cdc-chair-walk-return",
+      "frames": 67,
+      "rejected_alignment": 0,
+      "median_ms": 133.06,
+      "p95_ms": 212.67,
+      "counts": {
+        "raw:occupied->unknown": 5,
+        "state:occupied->unknown": 4,
+        "raw:occupied->occupied": 18,
+        "state:occupied->occupied": 14,
+        "raw:empty->occupied": 9,
+        "state:empty->occupied": 21,
+        "raw:empty->empty": 32,
+        "state:empty->empty": 23,
+        "raw:empty->unknown": 3,
+        "state:occupied->empty": 5
+      },
+      "predicted_events": [
+        [
+          1,
+          49.0,
+          "occupied"
+        ],
+        [
+          1,
+          57.75,
+          "empty"
+        ]
+      ],
+      "labelled_transitions": [
+        {
+          "table": 1,
+          "state": "empty",
+          "at": 52.5,
+          "delay": 5.25
+        },
+        {
+          "table": 1,
+          "state": "occupied",
+          "at": 63.5,
+          "delay": null
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "raw:occupied->unknown": 5,
+    "state:occupied->unknown": 4,
+    "raw:occupied->occupied": 18,
+    "state:occupied->occupied": 14,
+    "raw:empty->occupied": 9,
+    "state:empty->occupied": 21,
+    "raw:empty->empty": 32,
+    "state:empty->empty": 23,
+    "raw:empty->unknown": 3,
+    "state:occupied->empty": 5
+  }
+}

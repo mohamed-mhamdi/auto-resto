@@ -1,0 +1,91 @@
+{
+  "clips": [
+    {
+      "id": "caravela-diners",
+      "file": "caravela.mp4",
+      "split": "val",
+      "start": 95,
+      "end": 100.5,
+      "every": 0.25,
+      "size": [
+        640,
+        360
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            173,
+            28,
+            451,
+            329
+          ],
+          "labels": [
+            [
+              95,
+              100.5,
+              "occupied"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "caravela-staff",
+      "file": "caravela.mp4",
+      "split": "val",
+      "start": 114,
+      "end": 122,
+      "every": 0.25,
+      "size": [
+        640,
+        360
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            120,
+            146,
+            265,
+            214
+          ],
+          "labels": [
+            [
+              114,
+              122,
+              "empty"
+            ]
+          ]
+        }
+      }
+    },
+    {
+      "id": "caravela-terrace",
+      "file": "caravela.mp4",
+      "split": "val",
+      "start": 43,
+      "end": 58,
+      "every": 0.5,
+      "size": [
+        640,
+        360
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            25,
+            115,
+            160,
+            106
+          ],
+          "labels": [
+            [
+              43,
+              58,
+              "empty"
+            ]
+          ]
+        }
+      }
+    }
+  ]
+}

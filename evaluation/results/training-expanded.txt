@@ -1,0 +1,5 @@
+R�gularisation=0.0001 � rappel moyen 50.0% � [[62, 0, 0], [22, 0, 0]]
+R�gularisation=0.001 � rappel moyen 50.0% � [[62, 0, 0], [22, 0, 0]]
+R�gularisation=0.01 � rappel moyen 50.0% � [[62, 0, 0], [22, 0, 0]]
+Test � rappel moyen 74.6% � [[28, 0, 0], [28, 34, 7]]
+Matrice : lignes vide/occup�e, colonnes vide/occup�e/incertaine.

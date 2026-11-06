@@ -1,0 +1,62 @@
+:root{font:16px/1.5 "Segoe UI",system-ui,sans-serif;color:#20263a;background:#f6f7fb;--muted:#535e74;--line:#dce1ed;--primary:#38348e;--surface:#fff}
+*{box-sizing:border-box}
+body{margin:0}
+[hidden]{display:none!important}
+button,select,a{font:inherit}
+button,select,.download{min-height:44px;border-radius:9px;border:1px solid var(--line);background:white;color:inherit;padding:8px 13px}
+button,select,.download{cursor:pointer}
+button:hover,select:hover{border-color:#7772b6;background:#f4f3fc}
+button:disabled{opacity:.55;cursor:wait}
+:focus-visible{outline:3px solid #645ed7;outline-offset:3px}
+.top{background:#fff;border-bottom:1px solid var(--line);display:flex;gap:28px;align-items:center;padding:12px max(22px,calc((100vw - 1360px)/2));min-height:70px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.2rem;white-space:nowrap}
+.logo{display:grid;place-items:center;background:#37328b;color:#fff;border-radius:10px;width:34px;height:34px}
+.logo svg{width:19px;fill:currentColor}
+nav{display:flex;gap:5px}
+nav button{border-color:transparent;color:var(--muted);font-weight:650}
+nav [aria-current]{background:#eeecfb;color:var(--primary)}
+.connection{margin-left:auto;color:var(--muted);font-size:.875rem}
+main,footer{max-width:1404px;margin:auto;padding:26px 22px}
+.hero{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:0 0 23px}
+.eyebrow{color:var(--primary);letter-spacing:.12em;font-size:.76rem;font-weight:800;text-transform:uppercase}
+h1,h2,h3,p{margin:0}
+h1{font-size:clamp(2rem,4vw,3rem);letter-spacing:-.045em;line-height:1.15;margin:5px 0 8px}
+h2{font-size:1.2rem;letter-spacing:-.025em}
+h3{font-size:1.16rem}
+p{color:var(--muted)}
+.mode,.badge{display:inline-flex;align-items:center;border-radius:20px;font-size:.82rem;font-weight:700;padding:5px 10px;white-space:nowrap}
+.mode{background:#eeecfb;color:#38348e}
+.metrics{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:28px}
+.metric,.card,.side{background:var(--surface);border:1px solid var(--line);border-radius:14px}
+.metric{padding:14px 16px}
+.metric strong{display:block;font-size:1.65rem;line-height:1.15;margin-top:5px;font-variant-numeric:tabular-nums}
+.floor-layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(250px,310px);gap:22px}
+.section-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}
+.section-head label{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.85rem}
+.tables{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:12px}
+.card{padding:15px;display:flex;flex-direction:column;gap:9px}
+.card-head{display:flex;gap:7px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+.free{background:#e1f5ea;color:#135836}
+.waiting{background:#fce8e5;color:#9a2f24}
+.acknowledged,.served{background:#e8eefe;color:#2b4c98}
+.cleaning{background:#fff0d8;color:#774509}
+.timer{font-variant-numeric:tabular-nums;font-size:1.13rem;font-weight:700}
+.camera{font-size:.82rem}
+.actions{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.actions button{font-size:.86rem}
+.primary{background:#38348e;color:white;border-color:#38348e;font-weight:650}
+.primary:hover{background:#272366;color:white}
+.side{padding:16px;margin-bottom:14px}
+.side p{font-size:.9rem;margin:4px 0 10px}
+.line{border-top:1px solid var(--line);padding:9px 0;font-size:.88rem;display:flex;gap:8px;justify-content:space-between}
+.line time{color:var(--muted);white-space:nowrap}
+.priority{color:#8a3228}
+#notice{background:#fff0d8;color:#774509;padding:11px;border-radius:9px;margin-bottom:12px}
+.download{display:inline-flex;align-items:center;text-decoration:none}
+.vision-export{margin-bottom:16px}
+#hours{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:8px}
+.hour{background:#eeecfb;border-radius:8px;padding:8px;text-align:center;font-size:.87rem}
+.hour strong{display:block}
+footer{color:var(--muted);font-size:.85rem;display:flex;justify-content:space-between;gap:12px}
+@media(max-width:850px){.floor-layout{grid-template-columns:1fr}}
+@media(max-width:550px){.top{padding:10px;gap:8px;flex-wrap:wrap}.brand{font-size:1rem}main,footer{padding:16px}.hero{align-items:flex-start;flex-direction:column}.metrics{grid-template-columns:repeat(2,1fr)}.section-head{flex-wrap:wrap}#hours{grid-template-columns:repeat(4,minmax(0,1fr))}}

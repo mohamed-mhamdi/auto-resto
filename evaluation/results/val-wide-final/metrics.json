@@ -1,0 +1,62 @@
+{
+  "clips": [
+    {
+      "id": "caravela-diners",
+      "frames": 11,
+      "rejected_alignment": 0,
+      "median_ms": 114.2,
+      "p95_ms": 120.5,
+      "counts": {
+        "raw:occupied->unknown": 3,
+        "state:occupied->unknown": 11,
+        "raw:occupied->occupied": 8
+      },
+      "predicted_events": [],
+      "labelled_transitions": []
+    },
+    {
+      "id": "caravela-staff",
+      "frames": 16,
+      "rejected_alignment": 0,
+      "median_ms": 139.84,
+      "p95_ms": 198.69,
+      "counts": {
+        "raw:empty->unknown": 3,
+        "state:empty->unknown": 13,
+        "raw:empty->occupied": 13,
+        "state:empty->occupied": 3
+      },
+      "predicted_events": [
+        [
+          1,
+          120.5,
+          "occupied"
+        ]
+      ],
+      "labelled_transitions": []
+    },
+    {
+      "id": "caravela-terrace",
+      "frames": 30,
+      "rejected_alignment": 0,
+      "median_ms": 150.17,
+      "p95_ms": 217.01,
+      "counts": {
+        "raw:empty->empty": 30,
+        "state:empty->unknown": 30
+      },
+      "predicted_events": [],
+      "labelled_transitions": []
+    }
+  ],
+  "totals": {
+    "raw:occupied->unknown": 3,
+    "state:occupied->unknown": 11,
+    "raw:occupied->occupied": 8,
+    "raw:empty->unknown": 3,
+    "state:empty->unknown": 43,
+    "raw:empty->occupied": 13,
+    "state:empty->occupied": 3,
+    "raw:empty->empty": 30
+  }
+}

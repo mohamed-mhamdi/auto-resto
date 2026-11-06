@@ -1,0 +1,15 @@
+{
+  "clips": [{
+    "id": "cdc-chair-walk-return",
+    "file": "cdc-walk.mp4",
+    "start": 48,
+    "end": 64.75,
+    "size": [640, 360],
+    "tables": {"1": {
+      "region": [442, 55, 198, 300],
+      "seats": [[490, 125, 149, 80]],
+      "labels": [[48, 52.5, "occupied"], [52.5, 63.5, "empty"], [63.5, 64.75, "occupied"]]
+    }}
+  }]
+}
+

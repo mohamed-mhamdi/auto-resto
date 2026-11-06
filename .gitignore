@@ -1,0 +1,11 @@
+.venv/
+__pycache__/
+data/
+dataset/
+recordings/
+*.pt
+camera.json
+occupancy.npz
+
+.vision-env/
+*.sqlite.tmp

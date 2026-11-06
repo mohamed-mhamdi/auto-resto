@@ -1,0 +1,33 @@
+{
+  "clips": [
+    {
+      "id": "kehlsteinhaus-moving",
+      "file": "kehlsteinhaus.mp4",
+      "split": "test",
+      "start": 2,
+      "end": 18.5,
+      "every": 0.5,
+      "size": [
+        640,
+        360
+      ],
+      "tables": {
+        "1": {
+          "region": [
+            253,
+            201,
+            195,
+            153
+          ],
+          "labels": []
+        }
+      },
+      "reference_region": [
+        155,
+        15,
+        445,
+        145
+      ]
+    }
+  ]
+}

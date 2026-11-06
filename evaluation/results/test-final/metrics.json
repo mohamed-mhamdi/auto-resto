@@ -1,0 +1,62 @@
+{
+  "clips": [
+    {
+      "id": "cheese-mites-table",
+      "frames": 113,
+      "rejected_alignment": 0,
+      "median_ms": 152.52,
+      "p95_ms": 238.46,
+      "counts": {
+        "raw:occupied->unknown": 5,
+        "state:occupied->unknown": 16,
+        "raw:occupied->empty": 1,
+        "raw:occupied->occupied": 107,
+        "state:occupied->occupied": 97
+      },
+      "predicted_events": [
+        [
+          1,
+          14.0,
+          "occupied"
+        ]
+      ],
+      "labelled_transitions": []
+    },
+    {
+      "id": "sing-wong-empty-seats",
+      "frames": 14,
+      "rejected_alignment": 0,
+      "median_ms": 145.7,
+      "p95_ms": 196.86,
+      "counts": {
+        "raw:empty->empty": 28,
+        "state:empty->unknown": 28
+      },
+      "predicted_events": [],
+      "labelled_transitions": []
+    },
+    {
+      "id": "kusko-diners",
+      "frames": 6,
+      "rejected_alignment": 0,
+      "median_ms": 132.06,
+      "p95_ms": 178.19,
+      "counts": {
+        "raw:occupied->unknown": 7,
+        "state:occupied->unknown": 12,
+        "raw:occupied->occupied": 5
+      },
+      "predicted_events": [],
+      "labelled_transitions": []
+    }
+  ],
+  "totals": {
+    "raw:occupied->unknown": 12,
+    "state:occupied->unknown": 28,
+    "raw:occupied->empty": 1,
+    "raw:occupied->occupied": 112,
+    "state:occupied->occupied": 97,
+    "raw:empty->empty": 28,
+    "state:empty->unknown": 28
+  }
+}
